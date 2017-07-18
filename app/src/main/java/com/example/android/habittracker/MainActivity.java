@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                         currentRepetition);
             }
         } finally {
-            // Always close the cursor when you're done reading from it.
             // This releases all its resources and makes it invalid.
             cursor.close();
         }
