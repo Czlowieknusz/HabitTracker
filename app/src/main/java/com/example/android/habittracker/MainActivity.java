@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         mDbHelper = new HabitDbHelper(this);
         insertHabit();
-        displayDatabaseInfo();
+        Cursor cursor = queryAllHabits();
+        displayDatabaseInfo(cursor);
     }
 
     private void insertHabit() {
@@ -39,24 +40,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v("MainActivity.java", "values = " + values);
     }
 
-    private void displayDatabaseInfo() {
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        String[] projection = {
-                HabitEntry._ID,
-                HabitEntry.HABIT_NAME,
-                HabitEntry.HABIT_DATE,
-                HabitEntry.HABIT_TIME,
-                HabitEntry.HABIT_LENGTH,
-                HabitEntry.HABIT_REPETITIONS};
-        Cursor cursor = db.query(
-                HabitEntry.TABLE_NAME,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null);
+    private void displayDatabaseInfo(Cursor cursor) {
         try {
             // Display the number of rows in the Cursor (which reflects the number of rows in the
             // habit table in the database).
@@ -94,5 +78,26 @@ public class MainActivity extends AppCompatActivity {
             // resources and makes it invalid.
             cursor.close();
         }
+    }
+
+    public Cursor queryAllHabits() {
+        // Create and/or open a database to read from it
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        String[] projection = {
+                HabitEntry._ID,
+                HabitEntry.HABIT_NAME,
+                HabitEntry.HABIT_DATE,
+                HabitEntry.HABIT_TIME,
+                HabitEntry.HABIT_LENGTH,
+                HabitEntry.HABIT_REPETITIONS};
+        Cursor cursor = db.query(
+                HabitEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null);
+        return cursor;
     }
 }
