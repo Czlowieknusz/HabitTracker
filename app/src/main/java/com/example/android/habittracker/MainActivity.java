@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // method returning Cursor
     public Cursor queryAllHabits() {
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
